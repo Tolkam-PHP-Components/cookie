@@ -3,9 +3,10 @@
 namespace Tolkam\Cookie;
 
 use DateTime;
+use DateTimeInterface;
 use InvalidArgumentException;
 
-class SetCookie
+class Cookie
 {
     public const SAME_SITE_NONE   = 'None';
     public const SAME_SITE_LAX    = 'Lax';
@@ -33,7 +34,7 @@ class SetCookie
     protected ?string $domain;
     
     /**
-     * @var int
+     * @var int|null
      */
     protected ?int $maxAge;
     
@@ -61,11 +62,11 @@ class SetCookie
      * @param string      $name
      * @param string|null $value
      * @param string|null $domain
+     * @param string|null $path
      * @param int|null    $maxAge
-     * @param string      $path
      * @param bool        $secure
      * @param bool        $httpOnly
-     * @param string      $sameSite
+     * @param string|null $sameSite
      */
     private function __construct(
         string $name,
@@ -257,7 +258,9 @@ class SetCookie
     public function withSameSite(?string $sameSite): self
     {
         if ($sameSite !== null && !in_array($sameSite, self::KNOWN_SAME_SITE, true)) {
-            throw new InvalidArgumentException('The "SameSite" parameter value is not valid');
+            throw new InvalidArgumentException(
+                'The "SameSite" parameter value is not valid'
+            );
         }
         
         $cookie = clone $this;
@@ -308,7 +311,6 @@ class SetCookie
         }
         
         return implode('; ', $cookie);
-        // return http_build_query($cookie, '', '; ', PHP_QUERY_RFC3986);
     }
     
     /**
@@ -386,6 +388,7 @@ class SetCookie
     {
         $time = str_replace('-', '', $time);
         
-        return DateTime::createFromFormat(DateTime::RFC7231, $time)->getTimestamp();
+        return DateTime::createFromFormat(DateTimeInterface::RFC7231, $time)
+            ->getTimestamp();
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "tolkam/cookie",
-    "description": "Cookie helpers",
+    "description": "Cookies manipulation helper",
     "type": "library",
     "license": "proprietary",
     "autoload": {
@@ -10,10 +10,5 @@
     },
     "require": {
         "php": ">=7.4"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
     }
 }
