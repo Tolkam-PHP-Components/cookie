@@ -3,6 +3,13 @@
     "description": "Cookies manipulation helper",
     "type": "library",
     "license": "proprietary",
+    "authors": [
+        {
+            "name": "Kanstantsin Kulesh",
+            "email": "kk@tolkam.com",
+            "homepage": "https://www.tolkam.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Tolkam\\Cookie\\": "src"
